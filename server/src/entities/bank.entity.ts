@@ -10,7 +10,7 @@ export class BankHollow {
 	id: string
 
 	@Field()
-	@Column({ type: "varchar", unique: true })
+	@Column({ type: "varchar", unique: true, length: 20 })
 	name: string
 
 	@Field()

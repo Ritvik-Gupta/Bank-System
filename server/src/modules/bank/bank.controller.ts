@@ -36,7 +36,7 @@ export class BankController {
 		})
 	}
 
-	@Get(["/:bankId", "/:bankId/under"])
+	@Get(["/:bankId/under"])
 	fetchOneUnder(@Param("bankId") bankId: string): Promise<BankHollow | undefined> {
 		return this.bankService.fetchOne(bankId, {
 			root: "bank",
