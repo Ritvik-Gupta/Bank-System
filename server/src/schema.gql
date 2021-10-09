@@ -2,11 +2,11 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type Customer {
+type Employee {
   profileId: ID!
-  address: String!
+  bankId: ID!
   asProfile: Profile!
-  havingAccounts: [Account!]!
+  worksAt: Bank!
 }
 
 type ProfileHollow {
@@ -27,25 +27,11 @@ type Profile {
   accessToken: String!
 }
 
-type Employee {
+type Customer {
   profileId: ID!
-  bankId: ID!
+  address: String!
   asProfile: Profile!
-  worksAt: Bank!
-}
-
-type BankHollow {
-  id: ID!
-  name: String!
-  address: String!
-}
-
-type Bank {
-  id: ID!
-  name: String!
-  address: String!
-  employees: [Employee!]!
-  accounts: [Account!]!
+  havingAccounts: [Account!]!
 }
 
 type AccountHollow {
@@ -72,6 +58,20 @@ type Account {
   createDate: DateTime!
   forCustomer: Customer!
   withBank: Bank!
+}
+
+type BankHollow {
+  id: ID!
+  name: String!
+  address: String!
+}
+
+type Bank {
+  id: ID!
+  name: String!
+  address: String!
+  employees: [Employee!]!
+  accounts: [Account!]!
 }
 
 type Query {

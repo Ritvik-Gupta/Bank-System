@@ -1,4 +1,4 @@
-import { AccountType } from "$/services"
+import { AccountType } from "$$"
 import { Field, ID, ObjectType } from "@nestjs/graphql"
 import { CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryColumn } from "typeorm"
 import { Bank } from "./bank.entity"

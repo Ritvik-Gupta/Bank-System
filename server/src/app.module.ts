@@ -1,14 +1,14 @@
+import { BankModule } from "#/bank/bank.module"
+import { CustomerModule } from "#/customer/customer.module"
+import { EmployeeModule } from "#/employee/employee.module"
+import { ProfileModule } from "#/profile/profile.module"
+import { ENV, gqlFormatError, IContext } from "$$"
 import { Module } from "@nestjs/common"
 import { GraphQLModule } from "@nestjs/graphql"
 import { TypeOrmModule } from "@nestjs/typeorm"
-import { AccountModule } from "./account/account.module"
 import { AppController } from "./app.controller"
 import { AppService } from "./app.service"
-import { BankModule } from "./bank/bank.module"
-import { CustomerModule } from "./customer/customer.module"
-import { EmployeeModule } from "./employee/employee.module"
-import { ProfileModule } from "./profile/profile.module"
-import { ENV, gqlFormatError, IContext } from "./services"
+import { AccountModule } from "./modules/account/account.module"
 
 @Module({
 	imports: [

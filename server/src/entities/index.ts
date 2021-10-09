@@ -1,5 +1,0 @@
-export * from "./account.entity"
-export * from "./bank.entity"
-export * from "./customer.entity"
-export * from "./employee.entity"
-export * from "./profile.entity"

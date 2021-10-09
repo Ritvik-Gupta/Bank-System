@@ -1,4 +1,4 @@
-import { ENV, IAuthProfile, ProfileRole } from "$/services"
+import { ENV, IAuthProfile, ProfileRole } from "$$"
 import { Field, ID, ObjectType } from "@nestjs/graphql"
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
