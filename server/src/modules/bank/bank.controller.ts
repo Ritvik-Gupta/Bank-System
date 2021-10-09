@@ -6,9 +6,9 @@ import { BankService } from "./bank.service"
 export class BankController {
 	constructor(private readonly bankService: BankService) {}
 
-	@Get("/unprotected/:bankId")
-	fetchOneUnprotected(@Param("bankId") bankId: string): Promise<BankHollow | undefined> {
-		return this.bankService.fetchOneUnprotected(bankId)
+	@Get("/unprotected/id/:bankId")
+	fetchOneUnprotectedWithId(@Param("bankId") bankId: string): Promise<BankHollow | undefined> {
+		return this.bankService.fetchOneUnprotectedWithId(bankId)
 	}
 
 	@Get("/unprotected/name/:bankName")
@@ -18,9 +18,9 @@ export class BankController {
 		return this.bankService.fetchOneUnprotectedWithName(bankName)
 	}
 
-	@Get("/protected/:bankId")
-	fetchOneProtected(@Param("bankId") bankId: string): Promise<BankHollow | undefined> {
-		return this.bankService.fetchOneProtected(bankId)
+	@Get("/protected/id/:bankId")
+	fetchOneProtectedWithId(@Param("bankId") bankId: string): Promise<BankHollow | undefined> {
+		return this.bankService.fetchOneProtectedWithId(bankId)
 	}
 
 	@Get("/protected/name/:bankName")

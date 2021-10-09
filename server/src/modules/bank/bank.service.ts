@@ -24,7 +24,7 @@ export class BankService {
 		return this.bankRepo.createAndReturn(bankInput)
 	}
 
-	async fetchOneUnprotected(bankId: string): Promise<BankHollow | undefined> {
+	async fetchOneUnprotectedWithId(bankId: string): Promise<BankHollow | undefined> {
 		const result = await this.bankRepo.query(`SELECT * FROM bank WHERE id = '${bankId}' LIMIT 1`)
 		return result?.[0]
 	}
@@ -36,7 +36,7 @@ export class BankService {
 		return result?.[0]
 	}
 
-	async fetchOneProtected(bankId: string): Promise<BankHollow | undefined> {
+	async fetchOneProtectedWithId(bankId: string): Promise<BankHollow | undefined> {
 		const result = await this.bankRepo.query(`SELECT * FROM bank WHERE id = $1 LIMIT 1`, [bankId])
 		return result?.[0]
 	}
