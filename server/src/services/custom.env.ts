@@ -6,12 +6,12 @@ export namespace ENV {
 	export const PORT = process.env.PORT!
 	export const HASH_SALT_ROUNDS = parseInt(process.env.HASH_SALT_ROUNDS!)
 
-	export const JWT_ACCESS_TOKEN_SECRET = process.env.JWT_ACCESS_TOKEN_SECRET!
-	export const JWT_ACCESS_TOKEN_EXPIRY = process.env.JWT_ACCESS_TOKEN_EXPIRY!
+	export const ACCESS_TOKEN_SECRET = process.env.ACCESS_TOKEN_SECRET!
+	export const ACCESS_TOKEN_EXPIRY = process.env.ACCESS_TOKEN_EXPIRY!
 
-	export const JWT_REFRESH_TOKEN_COOKIE = process.env.JWT_REFRESH_TOKEN_COOKIE!
-	export const JWT_REFRESH_TOKEN_SECRET = process.env.JWT_REFRESH_TOKEN_SECRET!
-	export const JWT_REFRESH_TOKEN_EXPIRY = process.env.JWT_REFRESH_TOKEN_EXPIRY!
+	export const REFRESH_TOKEN_COOKIE = process.env.REFRESH_TOKEN_COOKIE!
+	export const REFRESH_TOKEN_SECRET = process.env.REFRESH_TOKEN_SECRET!
+	export const REFRESH_TOKEN_EXPIRY = process.env.REFRESH_TOKEN_EXPIRY!
 
 	export const DATABASE_URL = process.env.DATABASE_URL!
 	export const MAX_QUERY_COMPLEXITY = parseInt(process.env.MAX_QUERY_COMPLEXITY!)

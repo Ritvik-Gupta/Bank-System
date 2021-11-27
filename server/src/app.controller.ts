@@ -19,8 +19,8 @@ export class AppController {
 
 	@Get("/refresh-auth-token")
 	async refreshAuthToken(@Req() request: Request) {
-		const cookieToken = request.cookies[ENV.JWT_REFRESH_TOKEN_COOKIE]
-		const payload = jwt.verify(cookieToken, ENV.JWT_REFRESH_TOKEN_SECRET) as IRefreshProfile
+		const cookieToken = request.cookies[ENV.REFRESH_TOKEN_COOKIE]
+		const payload = jwt.verify(cookieToken, ENV.REFRESH_TOKEN_SECRET) as IRefreshProfile
 
 		const profile = await this.profileService.fetchOne(payload.id)
 		if (profile === undefined) throw new Error("Malformed Refresh Token Payload")

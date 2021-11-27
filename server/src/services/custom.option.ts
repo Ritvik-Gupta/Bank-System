@@ -30,11 +30,11 @@ export const gqlFormatError = (error: GraphQLError) =>
 export const nestedComplexityCalulator: Complexity = ({ childComplexity }) => childComplexity * 1.5
 
 export const createAccessToken = (payload: IAuthProfile) =>
-	jwt.sign(payload, ENV.JWT_ACCESS_TOKEN_SECRET, {
-		expiresIn: ENV.JWT_ACCESS_TOKEN_EXPIRY,
+	jwt.sign(payload, ENV.ACCESS_TOKEN_SECRET, {
+		expiresIn: ENV.ACCESS_TOKEN_EXPIRY,
 	})
 
 export const createRefreshToken = (payload: IRefreshProfile) =>
-	jwt.sign(payload, ENV.JWT_REFRESH_TOKEN_SECRET, {
-		expiresIn: ENV.JWT_REFRESH_TOKEN_EXPIRY,
+	jwt.sign(payload, ENV.REFRESH_TOKEN_SECRET, {
+		expiresIn: ENV.REFRESH_TOKEN_EXPIRY,
 	})

@@ -37,7 +37,7 @@ export class ProfileResolver {
 	): Promise<string> {
 		const profile = await this.profileService.login(login)
 
-		response.cookie(ENV.JWT_REFRESH_TOKEN_COOKIE, createRefreshToken({ id: profile.id }), {
+		response.cookie(ENV.REFRESH_TOKEN_COOKIE, createRefreshToken({ id: profile.id }), {
 			httpOnly: true,
 		})
 		return createAccessToken({ id: profile.id, role: profile.role })
