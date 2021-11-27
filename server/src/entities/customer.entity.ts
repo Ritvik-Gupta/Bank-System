@@ -6,7 +6,7 @@ import { Profile } from "./profile.entity"
 
 @ObjectType()
 export class CustomerHollow {
-	@Field(() => ID)
+	@Field(() => ID, { complexity: 2 })
 	@PrimaryColumn({ type: "uuid" })
 	profileId: string
 

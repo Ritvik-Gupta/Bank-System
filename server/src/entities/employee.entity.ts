@@ -6,11 +6,11 @@ import { Profile } from "./profile.entity"
 
 @ObjectType()
 export class EmployeeHollow {
-	@Field(() => ID)
+	@Field(() => ID, { complexity: 2 })
 	@PrimaryColumn({ type: "uuid" })
 	profileId: string
 
-	@Field(() => ID)
+	@Field(() => ID, { complexity: 2 })
 	@PrimaryColumn({ type: "uuid" })
 	bankId: string
 }

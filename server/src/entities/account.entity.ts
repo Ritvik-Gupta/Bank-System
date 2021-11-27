@@ -13,11 +13,11 @@ import { Customer } from "./customer.entity"
 
 @ObjectType()
 export class AccountHollow {
-	@Field(() => ID)
+	@Field(() => ID, { complexity: 2 })
 	@PrimaryColumn({ type: "uuid" })
 	customerId: string
 
-	@Field(() => ID)
+	@Field(() => ID, { complexity: 2 })
 	@PrimaryColumn({ type: "uuid" })
 	bankId: string
 

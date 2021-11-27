@@ -6,7 +6,7 @@ import { Employee } from "./employee.entity"
 
 @ObjectType()
 export class BankHollow {
-	@Field(() => ID)
+	@Field(() => ID, { complexity: 2 })
 	@PrimaryGeneratedColumn("uuid")
 	id: string
 
