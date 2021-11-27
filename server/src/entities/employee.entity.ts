@@ -1,4 +1,3 @@
-import { nestedComplexityCalulator } from "$$"
 import { Field, ID, ObjectType } from "@nestjs/graphql"
 import { Entity, JoinColumn, ManyToOne, OneToOne, PrimaryColumn } from "typeorm"
 import { Bank } from "./bank.entity"
@@ -18,16 +17,12 @@ export class EmployeeHollow {
 @ObjectType()
 @Entity()
 export class Employee extends EmployeeHollow {
-	@Field(() => Profile, {
-		complexity: nestedComplexityCalulator,
-	})
+	@Field(() => Profile)
 	@OneToOne(() => Profile, ({ asEmployee }) => asEmployee)
 	@JoinColumn({ name: "profileId", referencedColumnName: "id" })
 	asProfile: Profile
 
-	@Field(() => Bank, {
-		complexity: nestedComplexityCalulator,
-	})
+	@Field(() => Bank)
 	@ManyToOne(() => Bank, ({ employees }) => employees)
 	@JoinColumn({ name: "bankId", referencedColumnName: "id" })
 	worksAt: Bank

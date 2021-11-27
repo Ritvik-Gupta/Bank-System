@@ -2,7 +2,7 @@ import { BankModule } from "#/bank/bank.module"
 import { CustomerModule } from "#/customer/customer.module"
 import { EmployeeModule } from "#/employee/employee.module"
 import { ProfileModule } from "#/profile/profile.module"
-import { ComplexityPlugin, ENV, gqlFormatError, IContext } from "$$"
+import {  ENV, gqlFormatError, IContext } from "$$"
 import { Module } from "@nestjs/common"
 import { GraphQLModule } from "@nestjs/graphql"
 import { TypeOrmModule } from "@nestjs/typeorm"
@@ -32,6 +32,6 @@ import { AccountModule } from "./modules/account/account.module"
 		AccountModule,
 	],
 	controllers: [AppController],
-	providers: [AppService, ComplexityPlugin],
+	providers: [AppService],
 })
 export class AppModule {}

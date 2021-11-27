@@ -1,4 +1,3 @@
-import { nestedComplexityCalulator } from "$$"
 import { Field, ID, ObjectType } from "@nestjs/graphql"
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm"
 import { Account } from "./account.entity"
@@ -22,15 +21,11 @@ export class BankHollow {
 @ObjectType()
 @Entity()
 export class Bank extends BankHollow {
-	@Field(() => [Employee], {
-		complexity: nestedComplexityCalulator,
-	})
+	@Field(() => [Employee])
 	@OneToMany(() => Employee, ({ worksAt }) => worksAt)
 	employees: Employee[]
 
-	@Field(() => [Account], {
-		complexity: nestedComplexityCalulator,
-	})
+	@Field(() => [Account])
 	@OneToMany(() => Account, ({ withBank }) => withBank)
 	accounts: Account[]
 }
