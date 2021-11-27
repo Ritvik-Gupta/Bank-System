@@ -34,8 +34,8 @@ export class ProfileHollow implements IAuthProfile {
 	@Field(() => String, { complexity: 4 })
 	get accessToken(): string {
 		const payload: IAuthProfile = { id: this.id, email: this.email, role: this.role }
-		return jwt.sign(payload, ENV.JWT_ACCESS_TOKEN_SECRET, {
-			expiresIn: ENV.JWT_ACCESS_TOKEN_EXPIRY,
+		return jwt.sign(payload, ENV.ACCESS_TOKEN_SECRET, {
+			expiresIn: ENV.ACCESS_TOKEN_EXPIRY,
 		})
 	}
 
