@@ -17,5 +17,6 @@
 
 server/dist
 server/tsconfig.build.json
+server/src/schema.gql
 
 
