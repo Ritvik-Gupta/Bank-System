@@ -17,6 +17,6 @@ export class AuthenticationGuard implements CanActivate {
 		const [bearerToken, authToken] = authorization.split(" ")
 		if (bearerToken !== "Bearer") throw Error("Invalid Authorization Bearer Token")
 		if (authToken === undefined) throw Error("Invalid Authorization JWT Token")
-		return verify(authToken, ENV.JWT_SECRET) as IAuthProfile
+		return verify(authToken, ENV.JWT_ACCESS_TOKEN_SECRET) as IAuthProfile
 	}
 }
