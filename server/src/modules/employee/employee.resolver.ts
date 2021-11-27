@@ -1,7 +1,16 @@
 import { Employee } from "#/employee.entity"
-import { ProfileHollow } from "#/profile.entity"
 import { ProfileInput } from "#/profile/dto/profile.input"
-import { ForRoles, IContext, INormalizedPaths, Normalize, ProfileRole, UseAuthGuard } from "$$"
+import {
+	createAccessToken,
+	createRefreshToken,
+	ENV,
+	ForRoles,
+	IContext,
+	INormalizedPaths,
+	Normalize,
+	ProfileRole,
+	UseAuthGuard,
+} from "$$"
 import { Args, Context, Mutation, Query, Resolver } from "@nestjs/graphql"
 import { EmployeeInput } from "./dto/employee.input"
 import { EmployeeService } from "./employee.service"
@@ -10,12 +19,18 @@ import { EmployeeService } from "./employee.service"
 export class EmployeeResolver {
 	constructor(private readonly employeeService: EmployeeService) {}
 
-	@Mutation(() => ProfileHollow)
-	registerEmployee(
+	@Mutation(() => String)
+	async registerEmployee(
+		@Context() { response }: IContext,
 		@Args("employee") employeeInput: EmployeeInput,
 		@Args("profile") profileInput: ProfileInput
-	): Promise<ProfileHollow> {
-		return this.employeeService.register(employeeInput, profileInput)
+	): Promise<string> {
+		const profile = await this.employeeService.register(employeeInput, profileInput)
+
+		response.cookie(ENV.JWT_REFRESH_TOKEN_COOKIE, createRefreshToken({ id: profile.id }), {
+			httpOnly: true,
+		})
+		return createAccessToken({ id: profile.id, role: profile.role })
 	}
 
 	@Query(() => Employee, { nullable: true })

@@ -1,6 +1,6 @@
 import { BankRepository } from "#/bank/bank.repository"
 import { Employee } from "#/employee.entity"
-import { ProfileHollow } from "#/profile.entity"
+import { Profile } from "#/profile.entity"
 import { ProfileInput } from "#/profile/dto/profile.input"
 import { ProfileService } from "#/profile/profile.service"
 import { INormalizedPaths, ProfileRole } from "$$"
@@ -16,7 +16,7 @@ export class EmployeeService {
 		private readonly profileService: ProfileService
 	) {}
 
-	async register(employeeInput: EmployeeInput, profileInput: ProfileInput): Promise<ProfileHollow> {
+	async register(employeeInput: EmployeeInput, profileInput: ProfileInput): Promise<Profile> {
 		await this.bankRepo.ifDefined({ id: employeeInput.bankId })
 		const profile = await this.profileService.register(profileInput, ProfileRole.EMPLOYEE)
 		await this.employeeRepo.createAndReturn({ ...employeeInput, profileId: profile.id })

@@ -1,10 +1,10 @@
-import { ProfileHollow } from "#/profile.entity"
+import { Profile } from "#/profile.entity"
 import { Field, InputType } from "@nestjs/graphql"
 import { Length } from "class-validator"
 import { ProfileLoginInput } from "./profile-login.input"
 
 @InputType()
-export class ProfileInput extends ProfileLoginInput implements Partial<ProfileHollow> {
+export class ProfileInput extends ProfileLoginInput implements Partial<Profile> {
 	@Field()
 	@Length(3, 20)
 	firstName: string

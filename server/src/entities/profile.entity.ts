@@ -1,13 +1,13 @@
 import { ENV, IAuthProfile, ProfileRole } from "$$"
 import { Field, ID, ObjectType } from "@nestjs/graphql"
 import bcrypt from "bcrypt"
-import jwt from "jsonwebtoken"
 import { BeforeInsert, Column, Entity, OneToOne, PrimaryGeneratedColumn } from "typeorm"
 import { Customer } from "./customer.entity"
 import { Employee } from "./employee.entity"
 
 @ObjectType()
-export class ProfileHollow implements IAuthProfile {
+@Entity()
+export class Profile implements IAuthProfile {
 	@Field(() => ID)
 	@PrimaryGeneratedColumn("uuid")
 	id: string
@@ -31,11 +31,11 @@ export class ProfileHollow implements IAuthProfile {
 	@Column({ type: "enum", enum: ProfileRole })
 	role: ProfileRole
 
-	@Field(() => String, { complexity: 4 })
-	get accessToken(): string {
-		const payload: IAuthProfile = { id: this.id, email: this.email, role: this.role }
-		return jwt.sign(payload, ENV.JWT_SECRET, { expiresIn: ENV.JWT_EXPIRY })
-	}
+	@OneToOne(() => Employee, ({ asProfile }) => asProfile)
+	asEmployee: Employee
+
+	@OneToOne(() => Customer, ({ asProfile }) => asProfile)
+	asCustomer: Customer
 
 	@BeforeInsert()
 	async hashPassword(): Promise<void> {
@@ -45,14 +45,4 @@ export class ProfileHollow implements IAuthProfile {
 	comparePassword(attemptPassword: string): Promise<boolean> {
 		return bcrypt.compare(attemptPassword, this.password)
 	}
-}
-
-@ObjectType()
-@Entity()
-export class Profile extends ProfileHollow {
-	@OneToOne(() => Employee, ({ asProfile }) => asProfile)
-	asEmployee: Employee
-
-	@OneToOne(() => Customer, ({ asProfile }) => asProfile)
-	asCustomer: Customer
 }

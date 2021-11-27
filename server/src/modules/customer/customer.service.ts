@@ -1,5 +1,5 @@
 import { Customer } from "#/customer.entity"
-import { ProfileHollow } from "#/profile.entity"
+import { Profile } from "#/profile.entity"
 import { ProfileInput } from "#/profile/dto/profile.input"
 import { ProfileService } from "#/profile/profile.service"
 import { INormalizedPaths, ProfileRole } from "$$"
@@ -14,7 +14,7 @@ export class CustomerService {
 		private readonly profileService: ProfileService
 	) {}
 
-	async register(customerInput: CustomerInput, profileInput: ProfileInput): Promise<ProfileHollow> {
+	async register(customerInput: CustomerInput, profileInput: ProfileInput): Promise<Profile> {
 		const profile = await this.profileService.register(profileInput, ProfileRole.CUSTOMER)
 		await this.customerRepo.createAndReturn({ ...customerInput, profileId: profile.id })
 		return profile

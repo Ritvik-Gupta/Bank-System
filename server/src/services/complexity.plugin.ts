@@ -12,7 +12,7 @@ import { fieldExtensionsEstimator, getComplexity, simpleEstimator } from "graphq
 export class ComplexityPlugin implements ApolloServerPlugin {
 	constructor(private readonly gqlSchemaHost: GraphQLSchemaHost) {}
 
-	static buildError(complexity: number): GraphQLError {
+	private static buildError(complexity: number): GraphQLError {
 		return new GraphQLError(
 			`Query is too complex: ${complexity}. Maximum allowed complexity: ${ENV.MAX_QUERY_COMPLEXITY}`
 		)

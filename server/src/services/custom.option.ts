@@ -1,13 +1,13 @@
+import { IAuthProfile, IRefreshProfile } from "$$"
 import { UseGuards, ValidationError } from "@nestjs/common"
 import { Complexity } from "@nestjs/graphql"
 import { UserInputError } from "apollo-server-express"
 import { GraphQLError } from "graphql"
+import jwt from "jsonwebtoken"
 import { AuthenticationGuard, AuthorizationGuard } from "./auth"
 import { ENV } from "./custom.env"
 
 export const UseAuthGuard = () => UseGuards(AuthenticationGuard, AuthorizationGuard)
-
-export const nestedComplexityCalulator: Complexity = ({ childComplexity }) => childComplexity * 1.5
 
 type validationErrors = Record<"validation", ValidationError[]>
 
@@ -26,3 +26,15 @@ export const gqlFormatError = (error: GraphQLError) =>
 					})),
 				},
 		  }
+
+export const nestedComplexityCalulator: Complexity = ({ childComplexity }) => childComplexity * 1.5
+
+export const createAccessToken = (payload: IAuthProfile) =>
+	jwt.sign(payload, ENV.JWT_ACCESS_TOKEN_SECRET, {
+		expiresIn: ENV.JWT_ACCESS_TOKEN_EXPIRY,
+	})
+
+export const createRefreshToken = (payload: IRefreshProfile) =>
+	jwt.sign(payload, ENV.JWT_REFRESH_TOKEN_SECRET, {
+		expiresIn: ENV.JWT_REFRESH_TOKEN_EXPIRY,
+	})

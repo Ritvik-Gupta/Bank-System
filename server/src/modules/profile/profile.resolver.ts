@@ -1,5 +1,13 @@
-import { Profile, ProfileHollow } from "#/profile.entity"
-import { IContext, INormalizedPaths, Normalize, UseAuthGuard } from "$$"
+import { Profile } from "#/profile.entity"
+import {
+	createAccessToken,
+	createRefreshToken,
+	ENV,
+	IContext,
+	INormalizedPaths,
+	Normalize,
+	UseAuthGuard,
+} from "$$"
 import { Args, Context, Mutation, Query, Resolver } from "@nestjs/graphql"
 import { ProfileLoginInput } from "./dto/profile-login.input"
 import { ProfileService } from "./profile.service"
@@ -22,8 +30,16 @@ export class ProfileResolver {
 		return this.profileService.fetch(context.profile!.id, fieldPaths)
 	}
 
-	@Mutation(() => ProfileHollow)
-	login(@Args("login") login: ProfileLoginInput): Promise<ProfileHollow> {
-		return this.profileService.login(login)
+	@Mutation(() => String)
+	async login(
+		@Context() { response }: IContext,
+		@Args("login") login: ProfileLoginInput
+	): Promise<string> {
+		const profile = await this.profileService.login(login)
+
+		response.cookie(ENV.JWT_REFRESH_TOKEN_COOKIE, createRefreshToken({ id: profile.id }), {
+			httpOnly: true,
+		})
+		return createAccessToken({ id: profile.id, role: profile.role })
 	}
 }

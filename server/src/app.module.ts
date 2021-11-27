@@ -21,7 +21,7 @@ import { AccountModule } from "./modules/account/account.module"
 		}),
 		GraphQLModule.forRoot({
 			autoSchemaFile: ENV.IN_PRODUCTION || "./src/schema.gql",
-			context: ({ req }): IContext => ({ req }),
+			context: ({ req, res }): IContext => ({ request: req, response: res }),
 			formatError: gqlFormatError,
 			playground: !ENV.IN_PRODUCTION,
 		}),

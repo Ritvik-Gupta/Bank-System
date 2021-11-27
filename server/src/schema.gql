@@ -9,22 +9,12 @@ type Employee {
   worksAt: Bank!
 }
 
-type ProfileHollow {
-  id: ID!
-  firstName: String!
-  lastName: String!
-  email: String!
-  role: String!
-  accessToken: String!
-}
-
 type Profile {
   id: ID!
   firstName: String!
   lastName: String!
   email: String!
   role: String!
-  accessToken: String!
 }
 
 type Customer {
@@ -81,9 +71,9 @@ type Query {
 }
 
 type Mutation {
-  login(login: ProfileLoginInput!): ProfileHollow!
-  registerEmployee(profile: ProfileInput!, employee: EmployeeInput!): ProfileHollow!
-  registerCustomer(profile: ProfileInput!, customer: CustomerInput!): ProfileHollow!
+  login(login: ProfileLoginInput!): String!
+  registerEmployee(profile: ProfileInput!, employee: EmployeeInput!): String!
+  registerCustomer(profile: ProfileInput!, customer: CustomerInput!): String!
   createBank(bank: BankInput!): BankHollow!
   createAccount(account: AccountInput!): AccountHollow!
 }

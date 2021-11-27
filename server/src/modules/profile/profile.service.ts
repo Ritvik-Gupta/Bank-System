@@ -1,4 +1,4 @@
-import { Profile, ProfileHollow } from "#/profile.entity"
+import { Profile } from "#/profile.entity"
 import { INormalizedPaths, ProfileRole } from "$$"
 import { Injectable } from "@nestjs/common"
 import { ProfileLoginInput } from "./dto/profile-login.input"
@@ -20,14 +20,18 @@ export class ProfileService {
 			.getOne()
 	}
 
-	async login({ email, password }: ProfileLoginInput): Promise<ProfileHollow> {
+	fetchOne(profileId: string): Promise<Profile | undefined> {
+		return this.profileRepo.findOne(profileId)
+	}
+
+	async login({ email, password }: ProfileLoginInput): Promise<Profile> {
 		const profile = await this.profileRepo.ifDefined({ email })
 		const isSamePassword = await profile.comparePassword(password)
 		if (!isSamePassword) throw Error("Invalid Password")
 		return profile
 	}
 
-	async register(profileInput: ProfileInput, role: ProfileRole): Promise<ProfileHollow> {
+	async register(profileInput: ProfileInput, role: ProfileRole): Promise<Profile> {
 		await this.profileRepo.ifNotDefined({ email: profileInput.email })
 		return this.profileRepo.createAndReturn({ ...profileInput, role })
 	}

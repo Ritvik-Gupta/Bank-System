@@ -1,13 +1,16 @@
-import { Request } from "express"
+import { Request, Response } from "express"
 import { ProfileRole } from "./custom.enum"
 
-export interface IAuthProfile {
+export interface IRefreshProfile {
 	readonly id: string
-	readonly email: string
+}
+
+export interface IAuthProfile extends IRefreshProfile {
 	readonly role: ProfileRole
 }
 
 export interface IContext {
-	req: Request
+	request: Request
+	response: Response
 	profile?: IAuthProfile
 }

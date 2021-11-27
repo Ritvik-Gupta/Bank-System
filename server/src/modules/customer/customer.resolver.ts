@@ -1,7 +1,16 @@
 import { Customer } from "#/customer.entity"
-import { ProfileHollow } from "#/profile.entity"
 import { ProfileInput } from "#/profile/dto/profile.input"
-import { ForRoles, UseAuthGuard, ProfileRole, IContext, INormalizedPaths, Normalize } from "$$"
+import {
+	createAccessToken,
+	createRefreshToken,
+	ENV,
+	ForRoles,
+	IContext,
+	INormalizedPaths,
+	Normalize,
+	ProfileRole,
+	UseAuthGuard,
+} from "$$"
 import { Args, Context, Mutation, Query, Resolver } from "@nestjs/graphql"
 import { CustomerService } from "./customer.service"
 import { CustomerInput } from "./dto/customer.input"
@@ -10,12 +19,18 @@ import { CustomerInput } from "./dto/customer.input"
 export class CustomerResolver {
 	constructor(private readonly customerService: CustomerService) {}
 
-	@Mutation(() => ProfileHollow)
-	registerCustomer(
+	@Mutation(() => String)
+	async registerCustomer(
+		@Context() { response }: IContext,
 		@Args("customer") customerInput: CustomerInput,
 		@Args("profile") profileInput: ProfileInput
-	): Promise<ProfileHollow> {
-		return this.customerService.register(customerInput, profileInput)
+	): Promise<string> {
+		const profile = await this.customerService.register(customerInput, profileInput)
+
+		response.cookie(ENV.JWT_REFRESH_TOKEN_COOKIE, createRefreshToken({ id: profile.id }), {
+			httpOnly: true,
+		})
+		return createAccessToken({ id: profile.id, role: profile.role })
 	}
 
 	@Query(() => Customer, { nullable: true })
