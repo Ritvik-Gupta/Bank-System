@@ -1,4 +1,4 @@
-import { AccountType } from "$$"
+import { AccountType, nestedComplexityCalulator } from "$$"
 import { Field, ID, ObjectType } from "@nestjs/graphql"
 import {
 	CreateDateColumn,
@@ -39,12 +39,16 @@ export class AccountHollow {
 @ObjectType()
 @Entity()
 export class Account extends AccountHollow {
-	@Field(() => Customer)
+	@Field(() => Customer, {
+		complexity: nestedComplexityCalulator,
+	})
 	@ManyToOne(() => Customer, ({ havingAccounts }) => havingAccounts)
 	@JoinColumn({ name: "customerId", referencedColumnName: "profileId" })
 	forCustomer: Customer
 
-	@Field(() => Bank)
+	@Field(() => Bank, {
+		complexity: nestedComplexityCalulator,
+	})
 	@ManyToOne(() => Bank, ({ accounts }) => accounts)
 	@JoinColumn({ name: "bankId", referencedColumnName: "id" })
 	withBank: Bank
