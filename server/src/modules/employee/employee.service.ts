@@ -23,10 +23,10 @@ export class EmployeeService {
 		return profile
 	}
 
-	fetchOne(employeeId: string, fieldPath: INormalizedPaths): Promise<Employee | undefined> {
+	fetch(profileId: string, fieldPaths: INormalizedPaths): Promise<Employee | undefined> {
 		return this.employeeRepo
-			.getPopulatedQuery(fieldPath)
-			.where(`${fieldPath.root}.profileId = :employeeId`, { employeeId })
+			.getPopulatedQuery(fieldPaths)
+			.where(`${fieldPaths.root}.profileId = :profileId`, { profileId })
 			.getOne()
 	}
 }

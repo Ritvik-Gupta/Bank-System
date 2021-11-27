@@ -8,7 +8,7 @@ export class EmployeeController {
 
 	@Get("/:employeeId")
 	fetchOneUnder(@Param("employeeId") employeeId: string): Promise<EmployeeHollow | undefined> {
-		return this.employeeService.fetchOne(employeeId, {
+		return this.employeeService.fetch(employeeId, {
 			root: "employee",
 			relations: [],
 		})

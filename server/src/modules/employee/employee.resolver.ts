@@ -1,8 +1,8 @@
 import { Employee } from "#/employee.entity"
 import { ProfileHollow } from "#/profile.entity"
 import { ProfileInput } from "#/profile/dto/profile.input"
-import { INormalizedPaths, Normalize } from "$$"
-import { Args, ID, Mutation, Query, Resolver } from "@nestjs/graphql"
+import { ForRoles, IContext, INormalizedPaths, Normalize, ProfileRole, UseAuthGuard } from "$$"
+import { Args, Context, Mutation, Query, Resolver } from "@nestjs/graphql"
 import { EmployeeInput } from "./dto/employee.input"
 import { EmployeeService } from "./employee.service"
 
@@ -18,11 +18,13 @@ export class EmployeeResolver {
 		return this.employeeService.register(employeeInput, profileInput)
 	}
 
-	@Query(() => Employee)
-	async fetchOneEmployee(
-		@Normalize.Paths() fieldPath: INormalizedPaths,
-		@Args("employeeId", { type: () => ID }) employeeId: string
+	@Query(() => Employee, { nullable: true })
+	@UseAuthGuard()
+	@ForRoles(ProfileRole.EMPLOYEE)
+	currentEmployee(
+		@Context() context: IContext,
+		@Normalize.Paths() fieldPaths: INormalizedPaths
 	): Promise<Employee | undefined> {
-		return this.employeeService.fetchOne(employeeId, fieldPath)
+		return this.employeeService.fetch(context.profile!.id, fieldPaths)
 	}
 }

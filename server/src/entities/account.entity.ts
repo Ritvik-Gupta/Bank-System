@@ -1,6 +1,13 @@
 import { AccountType } from "$$"
 import { Field, ID, ObjectType } from "@nestjs/graphql"
-import { CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryColumn } from "typeorm"
+import {
+	CreateDateColumn,
+	DatabaseType,
+	Entity,
+	JoinColumn,
+	ManyToOne,
+	PrimaryColumn,
+} from "typeorm"
 import { Bank } from "./bank.entity"
 import { Customer } from "./customer.entity"
 
@@ -20,7 +27,13 @@ export class AccountHollow {
 
 	@Field()
 	@CreateDateColumn()
-	createDate: Date
+	createDate: DatabaseType
+
+	@Field(() => String)
+	get transactions(): string {
+		console.log(this)
+		return "abc"
+	}
 }
 
 @ObjectType()
