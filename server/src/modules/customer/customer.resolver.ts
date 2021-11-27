@@ -1,7 +1,7 @@
 import { Customer } from "#/customer.entity"
 import { ProfileHollow } from "#/profile.entity"
 import { ProfileInput } from "#/profile/dto/profile.input"
-import { ForRoles, UseAuthGuard, ProfileRole, IContext, INormalizedPaths, Normalize } from "$$"
+import { ForRoles, IContext, INormalizedPaths, Normalize, ProfileRole, UseAuthGuard } from "$$"
 import { Args, Context, Mutation, Query, Resolver } from "@nestjs/graphql"
 import { CustomerService } from "./customer.service"
 import { CustomerInput } from "./dto/customer.input"
